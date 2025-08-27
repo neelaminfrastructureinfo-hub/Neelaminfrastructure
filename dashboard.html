@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NEELAM INFRASTRUCTURE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <header class="bg-white/80 backdrop-blur sticky top-0 z-50 shadow">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-wide">NEELAM <span class="text-blue-600">INFRASTRUCTURE</span></a>
+      <nav class="space-x-4 text-sm">
+        <a class="hover:text-blue-600" href="/projects.html">Projects</a>
+        <a class="hover:text-blue-600" href="/contact.html">Contact</a>
+        <a class="hover:text-blue-600" href="/login.html" id="loginLink">Login</a>
+        <button class="hidden sm:inline-flex bg-blue-600 text-white px-3 py-1.5 rounded-lg" id="logoutBtn">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold">Dashboard</h1>
+    <p class="text-gray-600">Welcome, <span id="userName"></span> (<span id="userRole"></span>)</p>
+
+    <div id="adminPanel" class="mt-8 hidden">
+      <h2 class="text-2xl font-semibold mb-3">Admin Panel</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white border rounded-2xl p-6 shadow">
+          <h3 class="font-semibold mb-3">Create User</h3>
+          <form id="createUserForm" class="space-y-3">
+            <input class="w-full border rounded-lg px-3 py-2" name="name" placeholder="Full name" required />
+            <input class="w-full border rounded-lg px-3 py-2" name="email" type="email" placeholder="email@company.com" required />
+            <input class="w-full border rounded-lg px-3 py-2" name="password" type="password" placeholder="Password" required />
+            <select class="w-full border rounded-lg px-3 py-2" name="role">
+              <option value="employee">Employee</option>
+              <option value="admin">Admin</option>
+            </select>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg">Create</button>
+          </form>
+        </div>
+        <div class="bg-white border rounded-2xl p-6 shadow">
+          <h3 class="font-semibold mb-3">Projects</h3>
+          <form id="createProjectForm" class="space-y-3">
+            <input class="w-full border rounded-lg px-3 py-2" name="name" placeholder="Project name" required />
+            <textarea class="w-full border rounded-lg px-3 py-2" name="description" placeholder="Description"></textarea>
+            <select class="w-full border rounded-lg px-3 py-2" name="status">
+              <option value="planned">Planned</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg">Add Project</button>
+          </form>
+          <ul id="projectsList" class="mt-4 space-y-2 text-sm"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="employeePanel" class="mt-8 hidden">
+      <h2 class="text-2xl font-semibold mb-3">Timesheets</h2>
+      <form id="tsForm" class="bg-white border rounded-2xl p-6 shadow space-y-3">
+        <input class="w-full border rounded-lg px-3 py-2" name="date" type="date" required />
+        <input class="w-full border rounded-lg px-3 py-2" name="hours" type="number" min="0" step="0.5" placeholder="Hours" required />
+        <input class="w-full border rounded-lg px-3 py-2" name="task" placeholder="Task description" required />
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg">Submit</button>
+      </form>
+      <ul id="tsList" class="mt-4 space-y-2 text-sm"></ul>
+    </div>
+  </main>
+
+  <footer class="mt-20 border-t">
+    <div class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-600">
+      <div>© 2025 NEELAM INFRASTRUCTURE. All rights reserved.</div>
+    </div>
+  </footer>
+
+<script src="/assets/api.js"></script>
+<script src="/assets/auth.js"></script>
+<script src="/assets/dashboard.js"></script>
+</body>
+</html>

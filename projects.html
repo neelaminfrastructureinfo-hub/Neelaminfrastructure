@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NEELAM INFRASTRUCTURE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <header class="bg-white/80 backdrop-blur sticky top-0 z-50 shadow">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-wide">NEELAM <span class="text-blue-600">INFRASTRUCTURE</span></a>
+      <nav class="space-x-4 text-sm">
+        <a class="hover:text-blue-600" href="/projects.html">Projects</a>
+        <a class="hover:text-blue-600" href="/contact.html">Contact</a>
+        <a class="hover:text-blue-600" href="/login.html" id="loginLink">Login</a>
+        <button class="hidden sm:inline-flex bg-blue-600 text-white px-3 py-1.5 rounded-lg" id="logoutBtn">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold">Projects</h1>
+    <p class="text-gray-600">A snapshot of our ongoing and completed works.</p>
+    <ul id="publicProjects" class="mt-6 grid md:grid-cols-2 gap-4"></ul>
+  </main>
+
+  <footer class="mt-20 border-t">
+    <div class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-600">
+      <div>© 2025 NEELAM INFRASTRUCTURE. All rights reserved.</div>
+    </div>
+  </footer>
+
+<script src="/assets/api.js"></script>
+<script>
+(async () => {
+  try {
+    const projects = await api('/api/projects', { method: 'GET' });
+    const list = document.getElementById('publicProjects');
+    list.innerHTML = projects.map(p => `
+      <li class="bg-white border rounded-2xl p-6 shadow">
+        <div class="font-semibold">{} p.name {}</div>
+        <div class="text-sm text-gray-600 mt-1">{} p.description || '' {}</div>
+        <div class="text-xs mt-2 px-2 py-1 rounded bg-gray-100 inline-block">{} p.status {}</div>
+      </li>
+    `).join('');
+  } catch (e) {
+    console.error(e);
+  }
+})();
+</script>
+</body>
+</html>

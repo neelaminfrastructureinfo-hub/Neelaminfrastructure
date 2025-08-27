@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NEELAM INFRASTRUCTURE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <header class="bg-white/80 backdrop-blur sticky top-0 z-50 shadow">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-wide">NEELAM <span class="text-blue-600">INFRASTRUCTURE</span></a>
+      <nav class="space-x-4 text-sm">
+        <a class="hover:text-blue-600" href="/projects.html">Projects</a>
+        <a class="hover:text-blue-600" href="/contact.html">Contact</a>
+        <a class="hover:text-blue-600" href="/login.html" id="loginLink">Login</a>
+        <button class="hidden sm:inline-flex bg-blue-600 text-white px-3 py-1.5 rounded-lg" id="logoutBtn">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-md mx-auto px-4 py-16">
+    <div class="bg-white p-8 rounded-2xl shadow border">
+      <h1 class="text-2xl font-bold mb-6">Employee Login</h1>
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-sm mb-1">Email</label>
+          <input type="email" name="email" class="w-full border rounded-lg px-3 py-2" required />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Password</label>
+          <input type="password" name="password" class="w-full border rounded-lg px-3 py-2" required />
+        </div>
+        <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg">Login</button>
+      </form>
+      <p class="text-sm text-gray-600 mt-4">Use credentials provided by your administrator.</p>
+    </div>
+  </main>
+
+  <footer class="mt-20 border-t">
+    <div class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-600">
+      <div>© 2025 NEELAM INFRASTRUCTURE. All rights reserved.</div>
+    </div>
+  </footer>
+
+<script src="/assets/api.js"></script>
+<script src="/assets/auth.js"></script>
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const email = form.email.value.trim();
+  const password = form.password.value;
+  try {
+    const res = await api('/api/auth/login', {
+      method: 'POST',
+      body: { email, password }
+    });
+    localStorage.setItem('token', res.token);
+    localStorage.setItem('user', JSON.stringify(res.user));
+    window.location.href = '/dashboard.html';
+  } catch (err) {
+    alert(err.message || 'Login failed');
+  }
+});
+</script>
+</body>
+</html>
